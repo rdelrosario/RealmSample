@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="RealmSample.Views.TodoPage"
+             x:Name="mainPage">
+    <ContentPage.ToolbarItems>
+         <ToolbarItem Order="Primary"  
+                      Text="Add" 
+                      Priority="0"
+                      Command="{Binding AddTodoCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ListView x:Name="ContextDemoList"
+                  ItemsSource="{Binding Todos}">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                     <ViewCell.ContextActions>
+                        <MenuItem Command="{Binding Path=BindingContext.UpdateTodoCommand, Source={x:Reference mainPage}}"
+                                  CommandParameter="{Binding .}"
+                                  Text="Update" />
+                            
+                        <MenuItem Command="{Binding Path=BindingContext.DeleteTodoCommand, Source={x:Reference mainPage}}"
+                                  CommandParameter="{Binding .}"
+                                  Text="Delete" 
+                                  IsDestructive="True" />
+                     </ViewCell.ContextActions>
+                     <StackLayout Padding="15,10">
+                          <Label Text="{Binding Text}" 
+                                 FontAttributes="Bold" />
+                          <Label Text="{Binding Date}" 
+                                 FontSize="12" />
+                     </StackLayout>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+           </ListView>
+    </ContentPage.Content>
+</ContentPage>
